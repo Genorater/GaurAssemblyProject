@@ -1,4 +1,4 @@
-# GaurAssemblyProject
+# Gaur Assembly Project
 This repository contains custom scripts to analyse the gaur assembly. It also contains some scripts used for specific analyses of gene gains/losses and positive selection analyses.
 
 ## Table of contents
