@@ -1,7 +1,9 @@
 #------------------------------------------------------
 # Program name: gaur_divergent_regions_genes.R
-# Objective: to compare the gaur missing genes in divergent
-#           region chr15 against hereford and brahman
+# Objective: To compare the gaur missing genes in divergent
+#           region chr15 against hereford and brahman. Then
+#           plot heatmap of gene expression for region
+#           surrounding the divergent region.
 # Author: Lloyd Low
 # Email add: lloydlow@hotmail.com
 #------------------------------------------------------
@@ -11,6 +13,7 @@ library(readr)
 
 setwd("/Users/lloyd/Documents/lloyd_2019/Research/gaur/divergent_region/chr15_cattle_species/ribbon_plots/nucmer_divergent_chr15")
 
+#read in gene coordinates same as the displayed ribbon plot
 #hereford
 hereford_15_78791037_80120961 <- read_tsv("hereford_15_78791037_80120961.bed", col_names = FALSE)
 
@@ -134,8 +137,6 @@ write_tsv(ARSUCD1_2_chr15_77400000_80600000_geneatlas,"/Users/lloyd/Documents/ll
 # read in all gene atlas in the region flanking the divergent region
 path_to_atlas <- "/Users/lloyd/Documents/lloyd_2019/Research/gaur/divergent_region/chr15_cattle_species/gene_atlas_search/"
 
-# test <- read_tsv(paste0(path_to_atlas,"ENSBTAG00000048141.csv"))
-
 #create a list to read all *cov file
 file_list <- list.files(path = path_to_atlas, pattern = "*.csv")
 
@@ -196,14 +197,14 @@ head(FPKM_mean)
 FPKM_mean$prefix <- factor(FPKM_mean$prefix,levels = unique(FPKM_mean$prefix))
 
 # plot in three colors
-ggplot(FPKM_mean, aes(x = prefix, y = gsub("_","",Tissue), fill= mean_FPKM)) + 
-  geom_tile() + 
-  xlab("Gene") + 
-  ylab("Tissues")+
-  labs(fill = "mean FPKM") +
-  scale_fill_gradientn(colours = c("white", "blue", "red"),
-                       values = scales::rescale(c(0,60,150,250))) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1), axis.text.y=element_text(size=7))
+# ggplot(FPKM_mean, aes(x = prefix, y = gsub("_","",Tissue), fill= mean_FPKM)) + 
+#   geom_tile() + 
+#   xlab("Gene") + 
+#   ylab("Tissues")+
+#   labs(fill = "mean FPKM") +
+#   scale_fill_gradientn(colours = c("white", "blue", "red"),
+#                        values = scales::rescale(c(0,60,150,250))) +
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1), axis.text.y=element_text(size=7))
 
 # plot in two colors
 tiff(filename = "heatmap_expanded_divergent_region.tiff", width = 700, height = 700)
@@ -217,16 +218,16 @@ ggplot(FPKM_mean, aes(x = prefix, y = gsub("_","",Tissue), fill= mean_FPKM)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), axis.text.y=element_text(size=7))
 dev.off()
 
-# calculate the log2 values
-FPKM_mean$log_mean <- log2(FPKM_mean$mean_FPKM)
-# set infinite values to -14 == white
-FPKM_mean$log_mean[is.infinite(FPKM_mean$log_mean)] <- -14
-
-ggplot(FPKM_mean, aes(x = prefix, y = gsub("_","",Tissue), fill= log_mean)) + 
-  geom_tile() + 
-  xlab("Gene") + 
-  ylab("Tissues")+
-  labs(fill = "log2(mean FPKM)") +
-  scale_fill_gradientn(colours = c("white", "blue"),
-                       values = scales::rescale(c(-14,0,7))) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1), axis.text.y=element_text(size=7))
+# try with log2 values
+# FPKM_mean$log_mean <- log2(FPKM_mean$mean_FPKM)
+# # set infinite values to -14 == white
+# FPKM_mean$log_mean[is.infinite(FPKM_mean$log_mean)] <- -14
+# 
+# ggplot(FPKM_mean, aes(x = prefix, y = gsub("_","",Tissue), fill= log_mean)) + 
+#   geom_tile() + 
+#   xlab("Gene") + 
+#   ylab("Tissues")+
+#   labs(fill = "log2(mean FPKM)") +
+#   scale_fill_gradientn(colours = c("white", "blue"),
+#                        values = scales::rescale(c(-14,0,7))) +
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1), axis.text.y=element_text(size=7))

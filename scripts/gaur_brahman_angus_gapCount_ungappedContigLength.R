@@ -1,7 +1,7 @@
 #------------------------------------------------------
 # Program name: gaur_brahman_angus_gapCount_ungappedContigLength.R
 # Objective: All gap count and ungapped contig length comparisons
-#           for Brahman and Angus paper
+#           for gaur
 # Author: Lloyd Low
 # Email add: lloydlow@hotmail.com
 #------------------------------------------------------
