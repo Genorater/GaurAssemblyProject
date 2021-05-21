@@ -6,6 +6,8 @@ All scripts are given in the scripts directory. Description, specific scripts an
 
 * Divergent_region_analysis
 * Assembly_analysis
+* CAFE_gene_gains_and_losses_analysis
+* PAML_positive_selection_analysis
 
 Here is a brief description of the contents of each directory.
 
@@ -19,4 +21,4 @@ From contig to final ARS_UOA_Gaur_1 assembly, checking of the assembly metric su
 Read CAFE output and selected the gene evolution on gaur branch for GO and KEGG pathway analysis.
 
 ### PAML_positive_selection_analysis
-This folder contains the scripts to caculate the p-values for positive selected sites by reading log Like
+This folder contains the scripts to caculate the p-values for positive selected sites by using logLikelihood values from different models.
