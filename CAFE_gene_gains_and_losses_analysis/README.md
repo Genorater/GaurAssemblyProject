@@ -1,6 +1,5 @@
 # Analysis of gaur gene gains/losses
 
-## Table of Content
 Inside the Buffalo folder, you will find the script in R markdown format and associated input and output files. As some scripts have dependencies on output from other scripts, it may be best to run the script in the order specified below.
 ### 1. gaur_cafe_match_gene_famlies.R
   Group genes in the othrogroups into PANTHER gene families, and make a count table for gene families as CAFE input.
