@@ -1,6 +1,6 @@
 #------------------------------------------------------
 # Program name: gaur_paml_branch_positive_selection.R
-# Objective: Calculate the significantly positive selected genes for gaur branch
+# Objective: Read the positive selection results from PAML and find the immune related sites.
 #           
 # Author: Kelly Ren
 # Email add: kellydren@gmail.com
@@ -41,6 +41,7 @@ stopifnot(setdiff(Likelihood_branch_A$ID,OG_PAML_list$V1) == 0)
 left_join(OG_PAML_list,Likelihood_branch_A, by = c("V1" = "ID"))
 
 
+
 Likelihood_branch_B <- read.delim("input/From_paml/all_results_PAML_Likelihood_branch_B_gaur.txt", header = FALSE)%>%
   as.data.frame()%>%
   set_colnames(c("ID", "logLikelihood_branch_B"))
@@ -48,6 +49,7 @@ Likelihood_branch_B <- read.delim("input/From_paml/all_results_PAML_Likelihood_b
 Likelihood_branch_B$ID <- gsub("all_results/","",Likelihood_branch_B$ID)
 
 Likelihood_branch_B$ID%>%length()
+
 
 
 # The Alternative model - Null model
@@ -88,6 +90,8 @@ results_Positive_select <- results_Positive_select[,1:11]%>%
   left_join(drop_na(results_Positive_select[,c(1,12)]))
 
 
+
+
 # detlete other columns before reading
 # OGtbl <- read.table("input/From_OrthoFinder/OGtbl.tsv",header = T)%>%
 #   set_colnames(c("orthogroup_ID", "geneID", "spc"))
@@ -104,6 +108,8 @@ results_Positive_select <- results_Positive_select[,1:11]%>%
 # write_csv(branch_results_Positive_select,"output/PAML/branch_results_Positive_select.csv")
 
 
+
+
 InnateDB_immune <- read_csv("input/Immune_gene_ref/InnateDB_genes_all.csv")%>%
   as.data.frame()
 InnateDB_immune$entrez <- as.character(InnateDB_immune$entrez)
@@ -112,8 +118,11 @@ results_Positive_select$InnateDB <- results_Positive_select$geneID %in% InnateDB
 results_Positive_select%>%write_csv("output/PAML/branch_results_Positive_select.csv")
 
 
+
+
 ARS_UOA_Gaur_1pep_vs_ARS_UCD1_2pep_correspond <- readRDS("input/From_blast/ARS_UOA_Gaur_1pep_vs_ARS_UCD1_2pep_correspond.rds")
 head(ARS_UOA_Gaur_1pep_vs_ARS_UCD1_2pep_correspond)
+
 
 
 # detlete other columns before reading
@@ -121,6 +130,8 @@ OGtbl <- read.table("input/From_OrthoFinder/OGtbl.tsv",header = T)%>%
   set_colnames(c("orthogroup_ID", "geneID", "spc"))
 
 OGtbl$orthogroup_ID <- gsub("OG1v", "OG",OGtbl$orthogroup_ID)
+
+
 
 results_Positive_select_OGtbl_Bgau <- subset(OGtbl, orthogroup_ID %in% results_Positive_select$ID)%>%
   subset(spc %in% "Bgau")%>%
