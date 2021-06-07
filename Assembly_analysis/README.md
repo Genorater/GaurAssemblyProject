@@ -17,4 +17,4 @@ Analysis of repeat families in the gaur and comparison with cattle. The script(s
 
 gaur_repeatmasker.R
 
-Assembly comparison between gaur and cattle using [mercury] (https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02134-9) is part of [Themis-ASM] (https://github.com/njdbickhart/Themis-ASM), courtesy of Derek Bickhart.
+Assembly comparison between gaur and cattle using [mercury](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02134-9) is part of [Themis-ASM](https://github.com/njdbickhart/Themis-ASM), courtesy of Derek Bickhart.
